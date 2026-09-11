@@ -1,0 +1,5 @@
+@EndUserText.label: 'ZSD gym'
+define service ZSD_GYM_MEMBERS {
+  expose ZC_GYM_MEMBERS as GymMembers;
+  expose ZI_TRAINER_VH  as TrainerVH;
+}

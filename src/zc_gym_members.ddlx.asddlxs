@@ -1,0 +1,155 @@
+@Metadata.layer: #CUSTOMER
+
+@UI.selectionVariant: [
+  {
+    qualifier: 'Default',
+    text: 'Todos los Miembros'
+  }
+]
+
+@UI: {
+  headerInfo: {
+    typeName: 'Miembro',
+    typeNamePlural: 'Miembros',
+    typeImageUrl: 'sap-icon://customer',
+    title: {
+      type: #STANDARD,
+      value: 'FirstName'
+    },
+    description: {
+      type: #STANDARD,
+      value: 'LastName'
+    }
+  }
+}
+
+
+
+
+annotate view ZC_GYM_MEMBERS with
+{
+
+
+
+
+
+
+  /* ========================================================= */
+  /* ESTRUCTURA DE COLUMNAS (COLLECTION + FIELDGROUPS)         */
+  /* ========================================================= */
+ @UI.facet: [
+    {
+      id: 'HeaderPlan',
+      purpose: #HEADER,
+      
+      position: 10
+    },
+    {
+      id: 'MainHeader',
+      purpose: #STANDARD,
+      type: #COLLECTION,
+      label: 'Información General del Miembro',
+      position: 10
+    },
+    {
+      id: 'PersonalCol',
+      parentId: 'MainHeader',
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'Datos Personales y Contacto',
+      position: 10
+    },
+    {
+      id: 'PlanCol',
+      parentId: 'MainHeader',
+      type: #FIELDGROUP_REFERENCE,
+      label: 'Membresía y Servicios',
+      targetQualifier: 'PlanGroup',
+      position: 20
+    },
+    
+    
+    
+    {
+      id: 'HeaderStatus',
+      purpose: #HEADER,
+      type: #DATAPOINT_REFERENCE,
+      targetQualifier: 'StatusKPICard',
+      position: 10
+    }
+    
+  ]
+
+  @UI.hidden: true
+  ClientId;
+
+  /* --- COLUMNA 1: DATOS PERSONALES (identification) --- */
+
+  @UI: {
+    lineItem:       [ { position: 10, label: 'Cédula' } ],
+    identification: [ { position: 10, label: 'Cédula / DNI' } ],
+    selectionField: [ { position: 10 } ]
+  }
+  @EndUserText.label: 'Cédula / DNI'
+  IdCard;
+
+  @UI: {
+    lineItem:       [ { position: 20, label: 'Nombre' } ],
+    identification: [ { position: 20, label: 'Nombre' } ],
+    selectionField: [ { position: 20 } ]
+  }
+  @EndUserText.label: 'Nombre del Miembro'
+  FirstName;
+
+  @UI: {
+    lineItem:       [ { position: 30, label: 'Apellido' } ],
+    identification: [ { position: 30, label: 'Apellido' } ]
+  }
+  LastName;
+
+  @UI: {
+    lineItem:       [ { position: 40, label: 'Teléfono' } ],
+    identification: [ { position: 40, label: 'Teléfono / WhatsApp' } ]
+  }
+  PhoneNumber;
+
+  @UI: {
+    identification: [ { position: 50, label: 'Correo Electrónico' } ]
+  }
+  Email;
+
+  @UI: {
+    identification: [ { position: 60, label: 'Fecha de Nacimiento' } ]
+  }
+  BirthDate;
+
+
+  /* --- COLUMNA 2: MEMBRESÍA Y PLAN (fieldGroup: 'PlanGroup') --- */
+
+  @UI: {
+    lineItem:   [ { position: 75, label: 'Expira' } ],
+    fieldGroup: [ { qualifier: 'PlanGroup', position: 10, label: 'Fecha de Vencimiento' } ]
+    
+  }
+  ExpirationDate;
+
+  @UI: {
+    fieldGroup: [ { qualifier: 'PlanGroup', position: 20, label: '¿Entrenador Personal?' } ],
+    lineItem:   [ { position: 100, label: 'Entrenador' } ]
+  }
+  HasPersonalTrainer;
+
+  @UI: {
+    lineItem:   [ { position: 90, label: 'Estado de Pago', criticality: 'PaymentCriticality' } ],
+    dataPoint:  {
+      qualifier: 'StatusKPICard',
+      title: 'Estatus de Mensualidad',
+      criticality: 'PaymentCriticality'
+      
+    }
+  }
+  PaymentStatus;
+
+  @UI.hidden: true
+  PaymentCriticality;
+
+}

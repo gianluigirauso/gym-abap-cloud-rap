@@ -1,0 +1,42 @@
+managed implementation in class zbp_i_gym_members unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZI_GYM_MEMBERS alias Member
+persistent table zgym_members
+draft table zgym_members_e
+lock master total etag ExpirationDate
+authorization master ( none )
+etag master ExpirationDate
+{
+  create;
+  update;
+  delete;
+  field ( mandatory ) IdCard, FirstName, LastName, ExpirationDate;
+  field ( readonly, numbering : managed ) ClientId;
+
+  // Acciones para el manejo de Drafts
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+
+
+
+  mapping for zgym_members
+  {
+   ClientId           = client_id;
+    IdCard             = id_card;
+    FirstName          = first_name;
+    LastName           = last_name;
+    PhoneNumber        = phone_number;
+    Email              = email;
+    BirthDate          = birth_date;
+    ExpirationDate     = expiration_date;
+    HasPersonalTrainer = has_personal_trainer;
+
+
+  }
+}
