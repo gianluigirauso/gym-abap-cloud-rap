@@ -1,4 +1,3 @@
-# gym-abap-cloud-rap
 
 ##  Demostración de la Aplicación
 
@@ -11,7 +10,7 @@
 ### Object Page - Vista de Edición 
 ![Object Page Active](IMG_1901.jpeg)
 
-### Object Page - Vista de Detalle con Indicador de Estado
+### Object Page - Vista de Detaes
 ![Object Page Active](IMG_1902.jpeg)
 
 App fiori gym usando RAP
